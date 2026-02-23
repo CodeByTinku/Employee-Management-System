@@ -1,3 +1,9 @@
+# Environment Variables (SECRET - Never push to GitHub!)
+.env
+.env.*
+.env.local
+.env.production
+
 # Logs
 logs
 *.log
