@@ -3,9 +3,12 @@ import { FaPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { openEmployeePopup } from "../../store/features/popup/popup.slice";
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const { user } = useUser();
+
   return (
     <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 sticky top-0 z-10 shadow-lg">
       <Layout>
@@ -20,19 +23,45 @@ const Navbar = () => {
               Employees
             </a>
           </div>
-          <div className="navbar-end gap-2">
+
+          <div className="navbar-end gap-3 items-center">
+            {/* Welcome text */}
+            {user && (
+              <span className="hidden sm:block text-white/80 text-sm font-medium">
+                Hi, {user.username || user.emailAddresses?.[0]?.emailAddress?.split('@')[0]} 👋
+              </span>
+            )}
+
+            {/* Add Employee Button */}
             <button
-              onClick={()=>dispatch(openEmployeePopup())}
+              onClick={() => dispatch(openEmployeePopup())}
               className="btn btn-circle bg-white/20 backdrop-blur-sm border-white/30 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
               title="Add Employee"
             >
               <FaPlus className="text-lg" />
             </button>
+
+            {/* Favorites Button */}
             <button className="btn btn-circle bg-white/20 backdrop-blur-sm border-white/30 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110">
               <div className="indicator">
                 <FaHeart className="text-lg" />
               </div>
             </button>
+
+            {/* Clerk UserButton — profile + sign out */}
+            <div className="ml-1">
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "w-9 h-9 ring-2 ring-white/40 hover:ring-white/80 transition-all rounded-full",
+                    userButtonPopoverCard: "bg-slate-900 border border-white/10 shadow-2xl rounded-2xl",
+                    userButtonPopoverActionButton: "text-slate-300 hover:text-white hover:bg-white/10 rounded-xl",
+                    userButtonPopoverActionButtonText: "text-slate-300",
+                    userButtonPopoverFooter: "hidden",
+                  },
+                }}
+              />
+            </div>
           </div>
         </div>
       </Layout>
