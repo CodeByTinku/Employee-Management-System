@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
         </a>
        
-        <a className="hover:scale-110 transition-transform cursor-pointer group">
+        <a className="hover:scale-110 transition-transform cursor-pointer group" href="https://www.youtube.com/@cubingDost" target="_blank">
           <div className="w-10 h-10 bg-white/10 hover:bg-red-500/20 rounded-full flex items-center justify-center transition-all">
             <svg
               xmlns="http://www.w3.org/2000/svg"
